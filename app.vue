@@ -1,38 +1,47 @@
 <template>
-  <Html>
+  <Html class="dark">
     <Head>
       <Title>Enime</Title>
-      <Script v-if="production" async src="https://arc.io/widget.min.js#ZGU5XFjQ"/>
-      <Link rel="icon" href="/favicon.ico"/>
+      <Script
+        v-if="production"
+        async
+        src="https://arc.io/widget.min.js#ZGU5XFjQ"
+      />
+      <Link rel="icon" href="/favicon.ico" />
+      <Link rel="stylesheet" href="https://use.typekit.net/nyy5rnb.css" />
     </Head>
 
     <NuxtLayout>
-      <NuxtLoadingIndicator color="white" :height="2" />
+      <NuxtLoadingIndicator color="white" :height="3" />
       <NuxtPage />
     </NuxtLayout>
   </Html>
 </template>
 <script setup lang="ts">
-import { useRuntimeConfig } from '#app';
-import { onMounted } from 'vue';
+import { useRuntimeConfig } from "#app";
+import { onMounted } from "vue";
 
 const production = useRuntimeConfig().public.production;
 
 onMounted(() => {
   if (production) {
-    import('arrive').then(() => {
+    import("arrive").then(() => {
       document.arrive("#arc-widget-container", () => {
-        document.getElementById("arc-widget-container").style.setProperty("z-index", "999", "important");
-      })
+        document
+          .getElementById("arc-widget-container")
+          .style.setProperty("z-index", "999", "important");
+      });
     });
-    document.getElementById("arc-widget-container")?.style?.setProperty("z-index", "999", "important");
+    document
+      .getElementById("arc-widget-container")
+      ?.style?.setProperty("z-index", "999", "important");
   }
 });
 </script>
 <script lang="ts">
 export default {
-  name: "app"
-}
+  name: "app",
+};
 </script>
 <style>
 #arc-widget-container {
